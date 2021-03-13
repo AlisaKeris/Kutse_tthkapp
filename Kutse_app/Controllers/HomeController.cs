@@ -13,7 +13,24 @@ namespace Kutse_app.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Ootan sind minu peole! Palun tule!!!";
+            int month = DateTime.Now.Month;
+            if (month==03)
+            {
+                ViewBag.Message = "Ootan 8. märtsi peole!";
+            }
+            else if (month == 04)
+            {
+                ViewBag.Message = "Ootan 1 aprilli peole!";
+            }
+            else if (month == 05)
+            {
+                ViewBag.Message = "Ootan sind minu sünnipäeval peole!";
+            }
+            else if (month == 06)
+            {
+                ViewBag.Message = "Ootan Ivanovi päeva peole!";
+            }
+            
             int hour = DateTime.Now.Hour;
             if (hour < 12 && hour >= 5)
             {
@@ -46,7 +63,7 @@ namespace Kutse_app.Controllers
         public ActionResult Ankeet(Guest guest)
         {
 
-
+            E_mail(guest);
             if (ModelState.IsValid)
             {
 
@@ -66,7 +83,7 @@ namespace Kutse_app.Controllers
                 WebMail.SmtpPort = 587;
                 WebMail.EnableSsl = true;
                 WebMail.UserName = "alisa.krupenko18@gmail.com";
-                WebMail.Password = "********";
+                WebMail.Password = " ";
                 WebMail.From = "alisa.krupenko18@gmail.com";
                 WebMail.Send("alisa.krupenko18@gmail.com", "Vastus kutsele", guest.Name + " vastas " + ((guest.WillAttend ?? false) ? "tuleb peole " : "ei tule peole"));
                 ViewBag.Message = "Kiri on saatnud!";

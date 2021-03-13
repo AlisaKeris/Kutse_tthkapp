@@ -93,6 +93,26 @@ namespace Kutse_app.Controllers
                 ViewBag.Message = "Mul on kahju! Ei saa kirja saada!!!";
             }
         }
+        public ActionResult meeldetuletus(string email)
+        {
+            try
+            {
+                WebMail.SmtpServer = "smtp.gmail.com";
+                WebMail.SmtpPort = 587;
+                WebMail.EnableSsl = true;
+                WebMail.UserName = "";
+                WebMail.Password = "";
+                WebMail.From = "";
+                WebMail.Send(email, "Kutse", "Peo meeldetuletus!");
+
+            }
+            catch (Exception)
+            {
+                ViewBag.Message = "Mul on kahju! Ei saa kirja saada!!!";
+            }
+            return RedirectToAction("Index");
+        }
+        
 
     }
 }

@@ -13,6 +13,7 @@
         <p>
             <img src="~/images/smile.jpg" />
         </p>
+        @Html.ActionLink("Saada meeldetuletus", "meeldetuletus", "Home", new { email = Model.Email }, new { @class = "btn btn-primary" })
     }
     else
     {

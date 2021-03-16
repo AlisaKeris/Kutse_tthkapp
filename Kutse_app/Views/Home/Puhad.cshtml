@@ -1,0 +1,11 @@
+﻿@model Kutse_app.Models.Puhad
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <p> Sisesta puhkuse nimi: @Html.TextBoxFor(x => x.HolidayName)</p>
+    <p> Sisesta korraldaja nimi: @Html.TextBoxFor(x => x.OrgName)</p>
+    <p> Sisesta puhkuse kuupäev: @Html.TextBoxFor(x => x.HolidayDate)</p>
+
+    <input type="submit" value="Lisa puhkus" />
+}

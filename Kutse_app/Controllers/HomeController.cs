@@ -190,5 +190,28 @@ namespace Kutse_app.Controllers
             IEnumerable<Guest> guests = db.Guests.Where(g => g.WillAttend == false);
             return View(guests);
         }
+        [HttpGet]
+        [Authorize]
+        public ActionResult Puhad()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult Puhad(Puhad puhad)
+        {
+
+            
+            if (ModelState.IsValid)
+            {
+               
+                return View("Thanks");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
     }
 }

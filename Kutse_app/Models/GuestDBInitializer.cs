@@ -11,6 +11,8 @@ namespace Kutse_app.Models
         protected override void Seed(GuestContext db)
         {
             base.Seed(db);
+            
         }
+        
     }
 }

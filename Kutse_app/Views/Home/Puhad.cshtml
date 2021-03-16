@@ -1,11 +1,49 @@
-﻿@model Kutse_app.Models.Puhad
+﻿@model IEnumerable<Kutse_app.Models.Puhad>
 
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary()
-    <p> Sisesta puhkuse nimi: @Html.TextBoxFor(x => x.HolidayName)</p>
-    <p> Sisesta korraldaja nimi: @Html.TextBoxFor(x => x.OrgName)</p>
-    <p> Sisesta puhkuse kuupäev: @Html.TextBoxFor(x => x.HolidayDate)</p>
-
-    <input type="submit" value="Lisa puhkus" />
+@{
+    ViewBag.Title = "Pühad";
 }
+
+<h2>Pühad</h2>
+
+<p>
+    @Html.ActionLink("Uus puhkus", "CreateDay")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HolidayName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrgName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HolidayDate)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HolidayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrgName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HolidayDate)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Muuda", "EditDay", new { id = item.Id }) |
+
+                @Html.ActionLink("Kustuta", "DeleteDay", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

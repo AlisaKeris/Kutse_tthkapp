@@ -6,9 +6,8 @@ using System.Web;
 
 namespace Kutse_app.Models
 {
-    public class GuestContext : DbContext
+    public class PuhadContext : DbContext
     {
-        public DbSet<Guest> Guests { get; set; }
-        
+        public DbSet<Puhad> Puhad { get; set; }
     }
 }

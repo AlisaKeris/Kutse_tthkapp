@@ -76,14 +76,22 @@ namespace Kutse_app.Controllers
                 return View();
             }
         }
-        GuestContext db = new GuestContext();
+        GuestContext db = new GuestContext(); //быза данных
+        
         [Authorize]
         public ActionResult Guests()
         {
             IEnumerable<Guest> guests = db.Guests;
             return View(guests);
         }
-        public void E_mail(Guest guest)
+        PuhadContext dbfordays = new PuhadContext();
+        [Authorize]
+        public ActionResult Puhad()
+        {
+            IEnumerable<Puhad> puhad = dbfordays.Puhad;
+            return View(puhad);
+        }
+        public void E_mail(Guest guest) //отправка письма о прохождении опроса
         {
             try
             {
@@ -101,7 +109,7 @@ namespace Kutse_app.Controllers
                 ViewBag.Message = "Mul on kahju! Ei saa kirja saada!!!";
             }
         }
-        public ActionResult meeldetuletus(string email)
+        public ActionResult meeldetuletus(string email) //напоминание
         {
             try
             {
@@ -126,7 +134,7 @@ namespace Kutse_app.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Guest guest)
+        public ActionResult Create(Guest guest) // новый гость
         {
 
             
@@ -137,7 +145,23 @@ namespace Kutse_app.Controllers
             
         }
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult CreateDay()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateDay(Puhad puhad) // новый праздник
+        {
+
+
+            dbfordays.Puhad.Add(puhad);
+            dbfordays.SaveChanges();
+            return RedirectToAction("Puhad");
+
+
+        }
+        [HttpGet]
+        public ActionResult Delete(int id) //удаление гостя
         {
             Guest g = db.Guests.Find(id);
             if (g == null)
@@ -147,7 +171,7 @@ namespace Kutse_app.Controllers
             return View(g);
         }
         [HttpPost,ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id) 
         {
             Guest g = db.Guests.Find(id);
             if (g == null)
@@ -159,7 +183,29 @@ namespace Kutse_app.Controllers
             return RedirectToAction("Guests");
         }
         [HttpGet]
-        public ActionResult Edit(int? id)
+        public ActionResult DeleteDay(int id) //удаление праздника
+        {
+            Puhad d = dbfordays.Puhad.Find(id);
+            if (d == null)
+            {
+                return HttpNotFound();
+            }
+            return View(d);
+        }
+        [HttpPost, ActionName("DeleteDay")]
+        public ActionResult DeleteConfirmedDay(int id)
+        {
+            Puhad d = dbfordays.Puhad.Find(id);
+            if (d == null)
+            {
+                return HttpNotFound();
+            }
+            dbfordays.Puhad.Remove(d);
+            dbfordays.SaveChanges();
+            return RedirectToAction("Puhad");
+        }
+        [HttpGet]
+        public ActionResult Edit(int? id) //изменение инфо о госте
         {
             Guest g = db.Guests.Find(id);
             if (g == null)
@@ -177,41 +223,38 @@ namespace Kutse_app.Controllers
             return RedirectToAction("Guests");
         }
         [HttpGet]
+        public ActionResult EditDay(int? id) //изменение инфо о празднике
+        {
+            Puhad d = dbfordays.Puhad.Find(id);
+            if (d == null)
+            {
+                return HttpNotFound();
+            }
+            return View(d);
+        }
+        [HttpPost, ActionName("EditDay")]
+        public ActionResult EditConfirmedDay(Puhad puhad)
+        {
+
+            dbfordays.Entry(puhad).State = EntityState.Modified;
+            dbfordays.SaveChanges();
+            return RedirectToAction("Puhad");
+        }
+        [HttpGet]
         [Authorize]
-        public ActionResult Accept()
+        public ActionResult Accept() //кто придет
         {
             IEnumerable<Guest> guests = db.Guests.Where(g => g.WillAttend == true);
             return View(guests);
         }
         [HttpGet]
         [Authorize]
-        public ActionResult NotAccept()
+        public ActionResult NotAccept() //кто не придет
         {
             IEnumerable<Guest> guests = db.Guests.Where(g => g.WillAttend == false);
             return View(guests);
         }
-        [HttpGet]
-        [Authorize]
-        public ActionResult Puhad()
-        {
-            return View();
-        }
-        [HttpPost]
-        [Authorize]
-        public ActionResult Puhad(Puhad puhad)
-        {
-
-            
-            if (ModelState.IsValid)
-            {
-               
-                return View("Index");
-            }
-            else
-            {
-                return View();
-            }
-        }
+        
 
     }
 }

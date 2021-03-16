@@ -33,17 +33,17 @@ namespace Kutse_app.Controllers
             }
             
             int hour = DateTime.Now.Hour;
-            if (hour < 12 && hour >= 5)
+            if (hour <= 12 && hour >= 5)
             {
                 ViewData["greeting"] = "Tere hommikust!";
             }
                 
-            else if (hour>=12 && hour <= 19)
+            else if (hour>=12 && hour <= 18)
             {
                 ViewData["greeting"] = "Tere päevast!";
             }
                 
-            else if (hour>19 && hour < 23)
+            else if (hour>=18 && hour <= 23)
             {
                 ViewData["greeting"] = "Tere õhtust!";
             }
@@ -205,7 +205,7 @@ namespace Kutse_app.Controllers
             if (ModelState.IsValid)
             {
                
-                return View("Thanks");
+                return View("Index");
             }
             else
             {

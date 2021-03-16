@@ -66,7 +66,8 @@ namespace Kutse_app.Controllers
             E_mail(guest);
             if (ModelState.IsValid)
             {
-
+                db.Guests.Add(guest);
+                db.SaveChanges();
                 return View("Thanks", guest);
             }
             else
@@ -74,7 +75,13 @@ namespace Kutse_app.Controllers
                 return View();
             }
         }
-        
+        GuestContext db = new GuestContext();
+        [Authorize]
+        public ActionResult Guests()
+        {
+            IEnumerable<Guest> guests = db.Guests;
+            return View(guests);
+        }
         public void E_mail(Guest guest)
         {
             try
@@ -112,6 +119,7 @@ namespace Kutse_app.Controllers
             }
             return RedirectToAction("Index");
         }
+
         
 
     }

@@ -1,10 +1,10 @@
 ﻿@model Kutse_app.Models.Puhad
 
 @{
-    ViewBag.Title = "CreateDay";
+    ViewBag.Title = "Lisa puhkus";
 }
 
-<h2>CreateDay</h2>
+    <h2>Lisa puhkus</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -14,25 +14,24 @@
         <h4>Puhad</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.HolidayName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HolidayName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HolidayName, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        <label class = "control-label col-md-2">Lisa puhkus</label>
+
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HolidayName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HolidayName, "", new { @class = "text-danger" })
         </div>
+    </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.OrgName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <label class="control-label col-md-2">Lisa korraldaja nimi</label> <div class="col-md-10">
                 @Html.EditorFor(model => model.OrgName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.OrgName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.HolidayDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <label class="control-label col-md-2">Lisa puhkuse kuupäev</label>  <div class="col-md-10">
                 @Html.EditorFor(model => model.HolidayDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.HolidayDate, "", new { @class = "text-danger" })
             </div>
@@ -40,12 +39,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Lisa" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Tagasi nimekirja", "Puhad")
 </div>
